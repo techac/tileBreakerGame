@@ -7,6 +7,13 @@ var x =canvas.width/2;
 var y = canvas.height - 30;
 var rightPressed = false;
 var leftPressed = false;
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
 var dx = 1;
 var dy = -1;
 var ballRadius = 10;
@@ -51,7 +58,7 @@ function draw(){
         dy = -dy;
     }
     else if(y+dy >  canvas.height-ballRadius ){
-        alert("GAME OVER");
+        console.log("GAME OVER");
         document.location.reload();
     }
     if(x + dx > canvas.width-ballRadius || x + dx- ballRadius < 0) {
@@ -66,11 +73,32 @@ function draw(){
     drawPaddle();
     x+=dx;
     y+=dy;
+    drawBricks();
 };
 
+var bricks =[]
+for(var i =0;i<brickColumnCount; i++){
+    bricks[i] = [];
+    for(var j=0;j<brickRowCount; j++){
+        bricks[i][j] = {x:0 , y:0};
+    }
+}
+
+function drawBricks(){
+    for (var i=0;i<brickColumnCount; i++){
+        for(var j=0;j<brickRowCount; j++){
+            var brickX = (i*(brickWidth+ brickPadding) + brickOffsetLeft);
+            var brickY = (j*(brickHeight + brickPadding) + brickOffsetTop);
+            bricks[i][j].x = brickX;
+            bricks[i][j].y = brickY;
+            ctx.rect(brickX, brickY,brickWidth, brickHeight);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+}
 
 
 
-
-
-setInterval(draw,1);
+setInterval(draw,.1);
