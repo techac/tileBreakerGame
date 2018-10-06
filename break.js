@@ -82,7 +82,7 @@ function draw(){
             document.location.reload();
         }
     }
-    if(x + dx > canvas.width-ballRadius || x + dx- ballRadius < 0) {
+    if(x + dx > canvas.width-2*ballRadius || x + dx - ballRadius < 0) {
         dx = -dx;
     }
     if(rightPressed && paddleX < canvas.width-paddleWidth){
